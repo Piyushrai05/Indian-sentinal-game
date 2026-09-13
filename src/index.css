@@ -1,0 +1,350 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-void: #0A0806;
+  --color-panel: #14120E;
+  --color-panel-light: #1C1914;
+  --color-paper: #F4ECD8;
+  --color-muted: #A39783;
+  --color-brass: #C09A5B;
+  --color-amber: #D4A45C;
+  --color-danger: #EF4444;
+  --color-secure: #4ADE80;
+  --color-light-text: #D5C7B0;
+  --color-muted-text: #8A7F6C;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-void);
+  color: var(--color-paper);
+  font-family: 'Georgia', serif;
+  user-select: none;
+}
+
+/* Custom Tactical Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(20, 18, 14, 0.7);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(192, 154, 91, 0.4);
+  border-radius: 2px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 154, 91, 0.85);
+}
+
+/* Vignette Overlay */
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 45%, rgba(6, 4, 3, 0.75) 100%);
+  z-index: 10;
+}
+
+/* CRT Scanlines */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(192, 154, 91, 0.6)); }
+}
+
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes scanlineMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.animate-floatSoft {
+  animation: floatSoft 4s infinite ease-in-out;
+}
+
+.shadow-brass-glow {
+  box-shadow: 0 0 20px rgba(192, 154, 91, 0.35);
+}
+
+.shadow-danger-glow {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HOLOGRAPHIC TACTICAL VIDEO & CRT OPTICAL FEED SHADERS
+   ───────────────────────────────────────────────────────────── */
+
+.hologram-feed-mask {
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+}
+
+.hologram-lens-overlay {
+  background: radial-gradient(circle at center, transparent 40%, rgba(10, 8, 6, 0.85) 100%),
+              linear-gradient(rgba(192, 154, 91, 0.05) 50%, rgba(0, 0, 0, 0.4) 50%);
+  background-size: 100% 100%, 100% 4px;
+}
+
+.video-sepia-grade {
+  filter: sepia(0.65) contrast(1.25) brightness(0.8) hue-rotate(-15deg);
+}
+
+.video-flir-grade {
+  filter: grayscale(1) contrast(1.4) brightness(0.9) drop-shadow(0 0 8px rgba(0, 229, 255, 0.3));
+}
+
+@keyframes hudSweep {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+.animate-hud-sweep {
+  animation: hudSweep 3.5s infinite linear;
+}
+
+@keyframes reticleRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-reticle-rotate {
+  animation: reticleRotate 12s infinite linear;
+}
+
+@keyframes signalPulse {
+  0%, 100% { height: 20%; }
+  50% { height: 95%; }
+}
+
+.animate-signal-1 { animation: signalPulse 0.8s infinite ease-in-out; }
+.animate-signal-2 { animation: signalPulse 1.1s infinite ease-in-out 0.2s; }
+.animate-signal-3 { animation: signalPulse 0.6s infinite ease-in-out 0.4s; }
+.animate-signal-4 { animation: signalPulse 0.9s infinite ease-in-out 0.1s; }
+
+/* ─────────────────────────────────────────────────────────────
+   PREMIUM AAA MILITARY UI ANIMATIONS
+   ───────────────────────────────────────────────────────────── */
+
+/* Holographic shimmer scan */
+@keyframes holoShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.animate-holo-shimmer {
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(192,154,91,0.6) 40%,
+    rgba(255,240,180,0.9) 50%, rgba(192,154,91,0.6) 60%,
+    transparent 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holoShimmer 3.5s linear infinite;
+}
+
+/* NVG phosphor scan line */
+@keyframes nvgScan {
+  0% { transform: translateY(-100vh); opacity: 0.5; }
+  85% { opacity: 0.35; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+.animate-nvg-scan {
+  animation: nvgScan 6s linear infinite;
+}
+
+/* Threat zone pulse (red danger ring) */
+@keyframes threatPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); transform: scale(1); }
+  50% { box-shadow: 0 0 0 12px rgba(239,68,68,0); transform: scale(1.04); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); transform: scale(1); }
+}
+.animate-threat-pulse {
+  animation: threatPulse 1.8s infinite ease-out;
+}
+
+/* Secured zone pulse (green secure ring) */
+@keyframes securePulse {
+  0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+  60% { box-shadow: 0 0 0 10px rgba(74,222,128,0); }
+  100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+}
+.animate-secure-pulse {
+  animation: securePulse 2.4s infinite ease-out;
+}
+
+/* Gold border shimmer for premium buttons */
+@keyframes goldBorderShimmer {
+  0%, 100% { border-color: rgba(192,154,91,0.4); box-shadow: 0 0 6px rgba(192,154,91,0.2); }
+  50% { border-color: rgba(212,174,111,0.9); box-shadow: 0 0 18px rgba(212,174,111,0.5), inset 0 0 8px rgba(192,154,91,0.1); }
+}
+.animate-gold-shimmer {
+  animation: goldBorderShimmer 2.8s ease-in-out infinite;
+}
+
+/* Radar ping expanding ring */
+@keyframes radarPing {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.animate-radar-ping {
+  animation: radarPing 1.8s ease-out infinite;
+}
+
+/* Data stream text scroll */
+@keyframes dataStream {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-data-stream {
+  animation: dataStream 12s linear infinite;
+}
+
+/* Holographic flicker (CRT-style) */
+@keyframes holoFlicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.7; }
+  99% { opacity: 0.95; }
+}
+.animate-holo-flicker {
+  animation: holoFlicker 5s infinite;
+}
+
+/* Tactical grid zoom-in */
+@keyframes tacticalZoom {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.015); }
+}
+.animate-tactical-zoom {
+  animation: tacticalZoom 8s ease-in-out infinite alternate;
+}
+
+/* Compass rose spin */
+@keyframes compassSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-compass {
+  animation: compassSpin 28s linear infinite;
+}
+
+/* Status blink (CRITICAL indicator) */
+@keyframes criticalBlink {
+  0%, 100% { opacity: 1; color: #ef4444; }
+  50% { opacity: 0.4; color: #ff6666; }
+}
+.animate-critical-blink {
+  animation: criticalBlink 0.9s ease-in-out infinite;
+}
+
+/* Gradient breathing for war room panel backgrounds */
+@keyframes panelBreath {
+  0%, 100% { background-color: rgba(20,18,14,0.9); }
+  50% { background-color: rgba(26,22,16,0.95); }
+}
+.animate-panel-breath {
+  animation: panelBreath 5s ease-in-out infinite;
+}
+
+/* Satellite orbital scan beam */
+@keyframes orbitalBeam {
+  0% { transform: rotate(-15deg) scaleX(0); opacity: 0; }
+  30% { transform: rotate(0deg) scaleX(1); opacity: 0.8; }
+  70% { transform: rotate(0deg) scaleX(1); opacity: 0.8; }
+  100% { transform: rotate(15deg) scaleX(0); opacity: 0; }
+}
+.animate-orbital-beam {
+  animation: orbitalBeam 4s ease-in-out infinite;
+}
+
+/* Premium button press ripple */
+@keyframes btnRipple {
+  0% { transform: scale(0); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.animate-btn-ripple {
+  animation: btnRipple 0.6s ease-out forwards;
+}
+
+/* Terrain loading reveal */
+@keyframes terrainReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+.animate-terrain-reveal {
+  animation: terrainReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
